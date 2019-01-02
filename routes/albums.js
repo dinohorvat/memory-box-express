@@ -8,7 +8,7 @@ var dirTree = require("directory-tree");
 
 /* GET albums listing. */
 router.get('/', function (req, res) {
-    let albumRoot = dirTree('/home/pi/jp/SmartPlay/express-server/assets/data/albums', {
+    let albumRoot = dirTree('/home/pi/jp/SmartPlay/assets/data/albums', {
         extensions: /\.(mp4|jpg|JPG|png|jpeg|avi|mov)$/
     });
     res.send(albumRoot);
@@ -16,7 +16,7 @@ router.get('/', function (req, res) {
 
 router.get('/album/:name', function (req, res) {
     let albumName = req.params.name;
-    let albumRoot = dirTree('/home/pi/jp/SmartPlay/express-server/assets/data/albums/' + albumName, {
+    let albumRoot = dirTree('/home/pi/jp/SmartPlay/assets/data/albums/' + albumName, {
         extensions: /\.(mp4|jpg|JPG|png|jpeg|avi|mov)$/
     });
     res.send(albumRoot);
@@ -26,13 +26,13 @@ router.post('/createAlbum/:name',  (req, res) => {
     let albumName = req.params.name;
     let selectedFiles = req.body;
 
-    fs.ensureDirSync('/home/pi/jp/SmartPlay/express-server/assets/data/albums/'+albumName, err => {
+    fs.ensureDirSync('/home/pi/jp/SmartPlay/assets/data/albums/'+albumName, err => {
         console.log(err) // => null
     });
     for (let i = 0; i < selectedFiles.length; i++) {
         console.log('Starting creating album...');
         console.log(selectedFiles.length);
-        fs.copyFileSync(selectedFiles[i].path, '/home/pi/jp/SmartPlay/express-server/assets/data/albums/'+albumName+'/'+selectedFiles[i].name, (err) => {
+        fs.copyFileSync(selectedFiles[i].path, '/home/pi/jp/SmartPlay/assets/data/albums/'+albumName+'/'+selectedFiles[i].name, (err) => {
             if (err) {
                 console.log(err);
                 res.send('error');
@@ -46,7 +46,7 @@ router.post('/createAlbum/:name',  (req, res) => {
 
 router.post('/deleteAlbum', function (req, res) {
     console.log(req.query.name);
-    deleteFolder('/home/pi/jp/SmartPlay/express-server/assets/data/albums/'+req.query.name);
+    deleteFolder('/home/pi/jp/SmartPlay/assets/data/albums/'+req.query.name);
     res.send({success: true});
 });
 

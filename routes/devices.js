@@ -112,28 +112,9 @@ router.post('/set', function (req, res) {
     // res.send(directoryRoot);
 });
 
-router.post('/backupData', function (req, res) {
-    req.on('data', function (data) {
-        let dat = JSON.parse(data);
-        console.log('ZIP Starting...');
-        //TODO: finish
-        // zipFolder(dat.source, dat.destination + '/archive.zip', function(err) {
-        //     console.log('ZIP Started');
-        //     if(err) {
-        //         console.log('oh no!', err);
-        //         res.send('error');
-        //     } else {
-        //         console.log('EXCELLENT');
-        //         res.send('success');
-        //     }
-        // });
-    });
-
-});
-
 router.post('/setDeviceName/:pin', function (req, res) {
 
-    let writeStream = fs.createWriteStream('/home/pi/jp/SmartPlay/name.conf');
+    let writeStream = fs.createWriteStream('/home/pi/jp/SmartPlay/device_configuration/name.conf');
 
     writeStream.write(req.params.pin);
 
@@ -147,10 +128,10 @@ router.post('/changepin', function (req, res) {
     let oldPin = req.query.old;
     let newPin = req.query.new;
 
-    fs.readFile('/home/pi/jp/SmartPlay/pin.conf', 'utf8', function (err, data) {
+    fs.readFile('/home/pi/jp/SmartPlay/device_configuration/pin.conf', 'utf8', function (err, data) {
         console.log(data);
         if(oldPin === data){
-            fs.writeFile('/home/pi/jp/SmartPlay/pin.conf', newPin, (err) => {
+            fs.writeFile('/home/pi/jp/SmartPlay/device_configuration/pin.conf', newPin, (err) => {
                 // throws an error, you could also catch it here
                 if (err) throw err;
                 res.send({success: true});

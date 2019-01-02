@@ -10,7 +10,7 @@ router.get('/', function(req, res, next) {
 
 router.post('/connect/:pin', function (req, res) {
   console.log('reading pin');
-  fs.readFile('/home/pi/jp/SmartPlay/pin.conf', 'utf8', function (err, data) {
+  fs.readFile('/home/pi/jp/SmartPlay/device_configuration/pin.conf', 'utf8', function (err, data) {
     console.log("Pin=" + req.params.pin);
     console.log(data);
     if (req.params.pin === data) {

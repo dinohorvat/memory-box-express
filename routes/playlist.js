@@ -43,14 +43,14 @@ module.exports = function(io) {
     /* GET current playlist files. */
     router.post('/createTemp', function (req, res) {
         let selectedFiles = req.body;
-        fs.removeSync('/home/pi/jp/SmartPlay/express-server/assets/data/tempPlaylist');
-        fs.ensureDirSync('/home/pi/jp/SmartPlay/express-server/assets/data/tempPlaylist', err => {
+        fs.removeSync('/home/pi/jp/SmartPlay/assets/data/tempPlaylist');
+        fs.ensureDirSync('/home/pi/jp/SmartPlay/assets/data/tempPlaylist', err => {
             console.log(err) // => null
         });
 
         for (let i = 0; i < selectedFiles.length; i++) {
             console.log('Starting creating temp playlist...');
-            fs.copyFileSync(selectedFiles[i].path, '/home/pi/jp/SmartPlay/express-server/assets/data/tempPlaylist/'+selectedFiles[i].name, (err) => {
+            fs.copyFileSync(selectedFiles[i].path, '/home/pi/jp/SmartPlay/assets/data/tempPlaylist/'+selectedFiles[i].name, (err) => {
                 if (err) {
                     console.log('error');
                     console.log(err);

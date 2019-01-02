@@ -38,7 +38,7 @@ router.post('/files', function (req, res) {
             if(imagePass){
                 thumb({
                     source: file, // could be a filename: dest/path/image.jpg
-                    destination: '/home/pi/jp/SmartPlay/express-server/assets/data/thumbs',
+                    destination: '/home/pi/jp/SmartPlay/assets/data/thumbs',
                     concurrency: 4
                 }, function(files, err, stdout, stderr) {
                     console.log('Thumbnail done!');
