@@ -4,6 +4,9 @@ var fs = require('fs-extra');
 var archiver = require('archiver');
 var dateFormat = require('dateformat');
 var thumb = require('node-thumbnail').thumb;
+var ffmpeg = require('fluent-ffmpeg');
+var path = require('path');
+var execSync = require('child_process').execSync;
 
 // 3rd party packages
 var dirTree = require("directory-tree");
@@ -27,20 +30,19 @@ router.post('/files', function (req, res) {
             }
             var pass = /\.(|mp4|JPG|jpg|png|jpeg|avi|mov)$/.test(file);
             var imagePass = /\.(|JPG|jpg|png|jpeg)$/.test(file);
+            var videoPass = /\.(|mp4|avi|mov)$/.test(file);
 
-            if(!pass) {
+            if (!pass) {
                 return;
             }
             let _fileName = file;
             file = dir + '/' + file;
-            console.log(file);
-            console.log(_fileName);
-            if(imagePass){
+            if (imagePass) {
                 thumb({
                     source: file, // could be a filename: dest/path/image.jpg
                     destination: '/home/pi/jp/SmartPlay/assets/data/thumbs',
                     concurrency: 4
-                }, function(files, err, stdout, stderr) {
+                }, function (files, err, stdout, stderr) {
                     console.log('Thumbnail done!');
                 });
             }
@@ -52,12 +54,38 @@ router.post('/files', function (req, res) {
                 console.log(file);
                 let fileName = /[^/]*$/.exec(file)[0];
                 let _file = {
-                        isFolder: false,
-                        name: fileName,
-                        selected: false,
-                        parent: "root",
-                        path: file
+                    isFolder: false,
+                    name: fileName,
+                    selected: false,
+                    parent: "root",
+                    videoPath: '',
+                    path: file
                 };
+                if (videoPass) {
+                    console.log('videoPassss');
+                    console.log(fileName);
+                    let tempFileName = path.parse(fileName).name;
+                    console.log(tempFileName);
+                    if (fs.existsSync('/home/pi/jp/SmartPlay/assets/data/mediaThumbs/' + tempFileName +'.png')) {
+                        // Do something
+                        console.log('File exists');
+                    }
+                    else {
+                        console.log('Creating thumbnai');
+                        execSync('ffmpeg -i ' + file + ' -ss 00:00:02 -vframes 1 ' +
+                            '/home/pi/jp/SmartPlay/assets/data/mediaThumbs/' + tempFileName +'.png');
+                    }
+                    _file.videoPath = '/data/mediaThumbs' + tempFileName +'.png';
+                        // ffmpeg(file)
+                        //     .on('end', function () {
+                        //         console.log('Screenshots taken');
+                        //     })
+                        //     .screenshots({
+                        //         count: 1,
+                        //         filename: tempFileName + '.png',
+                        //         folder: '/home/pi/jp/SmartPlay/assets/mediaThumbs'
+                        //     });
+                }
                 /* Is a file */
                 results.push(_file);
             }
@@ -96,12 +124,10 @@ router.post('/download', function(req, res){
 });
 
 router.post('/downloadAll', function(req, res){
-    let source = req.body.source;
-
     var now = new Date();
     let fileName = "MemoryBox-" +  dateFormat(now, "mm-dd-yyyy-h-mm-ss");
 
-    let output = fs.createWriteStream(dest + '/' + fileName + '.zip');
+    let output = fs.createWriteStream(mediaPathUSB + '/' + fileName + '.zip');
     let archive = archiver('zip', {
         gzip: true,
         zlib: { level: 9 } // Sets the compression level.
@@ -112,7 +138,8 @@ router.post('/downloadAll', function(req, res){
     output.on('close', function() {
         console.log(archive.pointer() + ' total bytes');
         console.log('archiver has been finalized and the output file descriptor has closed.');
-        res.send({success:true});
+        var file = mediaPathUSB + '/' +  fileName + '.zip';
+        res.download(file); //
     });
 
 // This event is fired when the data source is drained no matter what was the data source.
@@ -164,6 +191,17 @@ router.post('/delete', function (req, res) {
         console.log(file);
         fs.removeSync(file.path);
     }
+    res.send({success: true});
+});
+
+router.post('/rename', function (req, res) {
+    let file = req.body;
+    fs.rename(file.oldPath, file.newPath, function(err) {
+        if ( err ) {
+            console.log('ERROR: ' + err);
+            res.send({success: false});
+        }
+    });
     res.send({success: true});
 });
 

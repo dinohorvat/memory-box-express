@@ -2,6 +2,7 @@ var express = require('express');
 var router = express.Router();
 var fs = require('fs-extra');
 var path = require('path');
+var execSync = require('child_process').execSync;
 
 // 3rd party packages
 var dirTree = require("directory-tree");
@@ -29,6 +30,11 @@ router.post('/createAlbum/:name',  (req, res) => {
     fs.ensureDirSync('/home/pi/jp/SmartPlay/assets/data/albums/'+albumName, err => {
         console.log(err) // => null
     });
+
+    fs.ensureDirSync('/home/pi/jp/SmartPlay/assets/data/albums/'+albumName +'/mediaThumbs', err => {
+        console.log(err) // => null
+    });
+
     for (let i = 0; i < selectedFiles.length; i++) {
         console.log('Starting creating album...');
         console.log(selectedFiles.length);
@@ -39,6 +45,22 @@ router.post('/createAlbum/:name',  (req, res) => {
             }
             console.log('source.txt was copied to destination.txt');
         });
+        var videoPass = /\.(|mp4|avi|mov)$/.test(selectedFiles[i].path);
+        if(videoPass) {
+            console.log('videoPassss');
+            let tempFileName = path.parse(selectedFiles[i].name).name;
+            console.log(tempFileName);
+            if (fs.existsSync('/home/pi/jp/SmartPlay/assets/data/albums/' + albumName +' /mediaThumbs/' + tempFileName +'.png')) {
+                // Do something
+                console.log('File exists');
+            }
+            else {
+                console.log('Creating thumbnai');
+                execSync('ffmpeg -i ' + selectedFiles[i].path + ' -ss 00:00:02 -vframes 1 ' +
+                    '/home/pi/jp/SmartPlay/assets/data/albums/' + albumName + '/mediaThumbs/' + tempFileName +'.png');
+            }
+        }
+
     }
     res.send({success: true});
 

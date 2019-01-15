@@ -21,6 +21,7 @@ directoryRoot = '';
 var indexRouter = require('./routes/index');
 var albumsRouter = require('./routes/albums');
 var mediaRouter = require('./routes/media');
+var mediaPlaylistRouter = require('./routes/media-playlist');
 var devicesRouter = require('./routes/devices');
 var playlistRouter = require('./routes/playlist')(io);
 
@@ -36,6 +37,7 @@ app.use('/data', express.static('assets/data'), serveIndex('assets/data', {'icon
 app.use('/', indexRouter);
 app.use('/albums', albumsRouter);
 app.use('/media', mediaRouter);
+app.use('/mediaPlaylist', mediaPlaylistRouter);
 app.use('/devices', devicesRouter);
 app.use('/playlist', playlistRouter);
 

@@ -1,0 +1,11 @@
+
+filepreview package:
+    apt-get install unoconv
+    apt-get install ffmpeg
+    apt-get install imagemagick
+    apt-get install curl
+
+
+
+APP    sudo chown -R pi:pi SmartPlay/
+USB    sudo chown -R pi:pi pi/

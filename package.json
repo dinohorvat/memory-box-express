@@ -7,21 +7,29 @@
   },
   "dependencies": {
     "archiver": "^3.0.0",
+    "async": "^2.6.1",
     "check-disk-space": "^1.5.0",
     "cookie-parser": "~1.4.3",
     "dateformat": "^3.0.3",
+    "deasync": "^0.1.14",
     "debug": "~2.6.9",
     "directory-tree": "^2.2.1",
     "drivelist": "^6.4.3",
     "express": "~4.16.0",
     "express-fileupload": "^1.1.1-alpha.1",
+    "ffmpeg": "0.0.4",
+    "fluent-ffmpeg": "^2.1.2",
     "fs-extra": "^7.0.1",
     "http-errors": "~1.6.2",
+    "is-image": "^2.0.0",
     "jade": "~1.11.0",
     "morgan": "~1.9.0",
+    "node-cmd": "^3.0.0",
     "node-thumbnail": "^0.14.0",
+    "omx-manager": "^0.1.4",
     "serve-index": "^1.9.1",
     "socket.io": "^2.2.0",
-    "uuid": "^3.3.2"
+    "uuid": "^3.3.2",
+    "vlc-simple-player": "^0.5.0"
   }
 }

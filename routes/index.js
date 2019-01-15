@@ -35,8 +35,8 @@ router.get('/wifi', (req, res) => {
   const pyProg = spawn('python', ['/home/pi/jp/SmartPlay/pythons/WifiAuto.py']);
 
   pyProg.stdout.on('data', function(data) {
-    console.log(data);
-    res.send({data: data, success: true});
+    console.log(data.toString());
+    res.send({data: data.toString(), success: true});
     res.end('end');
     return;
   });
