@@ -1,9 +1,13 @@
+--- Raspbian Image ---
+1) Download Newest Raspbian Stretch Desktop image and mount it to SD card
+2) ssh to the Pi device
+
 --- Installing Linux dependencies ---
 sudo apt-get install nodejs
 sudo apt-get install npm
 
 --- Setting up application structure (NodeServer + Python Server) ---
-1) Download Newest Raspbian Stretch Desktop image
+1) ssh to the Pi device
 2) mkdir /home/pi/jp
 3) git clone https://github.com/dinohorvat/memory-box-express.git
 4) rename cloned dir to SmartPlay
