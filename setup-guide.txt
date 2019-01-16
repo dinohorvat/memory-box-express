@@ -1,0 +1,13 @@
+--- Installing Linux dependencies ---
+sudo apt-get install nodejs
+sudo apt-get install npm
+
+--- Setting up application structure ---
+1) Download Newest Raspbian Stretch Desktop image
+2) mkdir /home/pi/jp
+3) git clone https://github.com/dinohorvat/memory-box-express.git
+4) rename cloned dir to SmartPlay
+5) git clone https://github.com/dinohorvat/SmartPlay_Playlist_Server.git
+6) Enter /home/pi/jp/SmartPlay
+7) sudo npm install --unsafe-perm=true --allow-root
+

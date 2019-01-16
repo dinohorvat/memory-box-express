@@ -66,7 +66,7 @@ router.post('/files', function (req, res) {
                         execSync('ffmpeg -i ' + file + ' -ss 00:00:02 -vframes 1 ' +
                             '/home/pi/jp/SmartPlay/assets/data/mediaThumbs/' + tempFileName +'.png');
                     }
-                    _file.videoPath = '/data/mediaThumbs' + tempFileName +'.png';
+                    _file.videoPath = '/data/mediaThumbs/' + tempFileName +'.png';
                         // ffmpeg(file)
                         //     .on('end', function () {
                         //         console.log('Screenshots taken');

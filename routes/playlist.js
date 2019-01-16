@@ -75,9 +75,7 @@ module.exports = function(io) {
         playlistData = playlistDataStart;
         let selectedFiles = req.body;
         fs.removeSync('/home/pi/jp/SmartPlay/assets/data/tempPlaylist');
-        fs.ensureDirSync('/home/pi/jp/SmartPlay/assets/data/tempPlaylist', err => {
-            console.log(err) // => null
-        });
+        fs.ensureDirSync('/home/pi/jp/SmartPlay/assets/data/tempPlaylist', 0o777);
 
         for (let i = 0; i < selectedFiles.length; i++) {
             console.log('Starting creating temp playlist...');
