@@ -38,10 +38,12 @@ Python server: (/home/pi/jp/SmartPlay_Playlist_Server)
 
 *** Making servers run on startup ***
 1) sudo nano /etc/profile
-2) Add this:
+2) Add this under other export:
     FLASK_APP="/home/pi/jp/SmartPlay_Playlist_Server/app.py"
     export FLASK_APP
 3) sudo nano /etc/rc.local
-4) Add this:
+4) Add this before last line:
+    python /home/pi/jp/SmartPlay_Playlist_Server/app.py &
+    node /home/pi/jp/SmartPlay/bin/www &
 
 
