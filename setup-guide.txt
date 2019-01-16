@@ -2,7 +2,7 @@
 sudo apt-get install nodejs
 sudo apt-get install npm
 
---- Setting up application structure ---
+--- Setting up application structure (NodeServer + Python Server) ---
 1) Download Newest Raspbian Stretch Desktop image
 2) mkdir /home/pi/jp
 3) git clone https://github.com/dinohorvat/memory-box-express.git
@@ -16,4 +16,5 @@ sudo apt-get install npm
 11) mkdir albums
 12) mkdir mediaThumbs
 13) mkdir tempPlaylist
+
 

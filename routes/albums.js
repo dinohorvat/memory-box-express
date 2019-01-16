@@ -29,7 +29,7 @@ router.post('/createAlbum/:name',  (req, res) => {
 
     fs.ensureDirSync('/home/pi/jp/SmartPlay/assets/data/albums/'+albumName, 0o777);
 
-    fs.ensureDirSync('/home/pi/jp/SmartPlay/assets/data/albums/'+albumName +'/mediaThumbs', 0o77);
+    fs.ensureDirSync('/home/pi/jp/SmartPlay/assets/data/albums/'+albumName +'/mediaThumbs', 0o777);
 
     for (let i = 0; i < selectedFiles.length; i++) {
         console.log('Starting creating album...');
