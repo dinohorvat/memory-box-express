@@ -32,7 +32,8 @@ app.use(express.urlencoded({ extended: false }));
 app.use(cookieParser());
 
 app.use(express.static(path.join(__dirname, 'public')));
-app.use('/data', express.static('assets/data'), serveIndex('assets/data', {'icons': true}))
+app.use('/static', express.static('assets'));
+app.use('/data', express.static('assets/data'), serveIndex('assets/data', {'icons': true}));
 
 app.use('/', indexRouter);
 app.use('/albums', albumsRouter);

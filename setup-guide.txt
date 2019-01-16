@@ -17,4 +17,31 @@ sudo apt-get install npm
 12) mkdir mediaThumbs
 13) mkdir tempPlaylist
 
+--- Set up  OMXIV ---
+1) cd /home/pi/jp
+2) git clone https://github.com/HaarigerHarald/omxiv
+3) sudo apt-get install libjpeg8-dev libpng12-dev
+4) cd omxiv
+5) make ilclient
+6) make
+7) sudo make install
+
+
+**** Running servers ****
+Node server: (/home/pi/jp/SmartPlay)
+    node bin/www
+
+Python server: (/home/pi/jp/SmartPlay_Playlist_Server)
+    export FLASK_APP=app.py
+    flask run --host=0.0.0.0
+
+
+*** Making servers run on startup ***
+1) sudo nano /etc/profile
+2) Add this:
+    FLASK_APP="/home/pi/jp/SmartPlay_Playlist_Server/app.py"
+    export FLASK_APP
+3) sudo nano /etc/rc.local
+4) Add this:
+
 
