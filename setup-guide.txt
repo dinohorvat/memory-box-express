@@ -10,4 +10,10 @@ sudo apt-get install npm
 5) git clone https://github.com/dinohorvat/SmartPlay_Playlist_Server.git
 6) Enter /home/pi/jp/SmartPlay
 7) sudo npm install --unsafe-perm=true --allow-root
+8) cd assets/
+9) mkdir data
+10) cd data
+11) mkdir albums
+12) mkdir mediaThumbs
+13) mkdir tempPlaylist
 
