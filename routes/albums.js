@@ -27,13 +27,9 @@ router.post('/createAlbum/:name',  (req, res) => {
     let albumName = req.params.name;
     let selectedFiles = req.body;
 
-    fs.ensureDirSync('/home/pi/jp/SmartPlay/assets/data/albums/'+albumName, err => {
-        console.log(err) // => null
-    });
+    fs.ensureDirSync('/home/pi/jp/SmartPlay/assets/data/albums/'+albumName, 0o777);
 
-    fs.ensureDirSync('/home/pi/jp/SmartPlay/assets/data/albums/'+albumName +'/mediaThumbs', err => {
-        console.log(err) // => null
-    });
+    fs.ensureDirSync('/home/pi/jp/SmartPlay/assets/data/albums/'+albumName +'/mediaThumbs', 0o77);
 
     for (let i = 0; i < selectedFiles.length; i++) {
         console.log('Starting creating album...');
@@ -47,15 +43,19 @@ router.post('/createAlbum/:name',  (req, res) => {
         });
         var videoPass = /\.(|mp4|avi|mov)$/.test(selectedFiles[i].path);
         if(videoPass) {
-            console.log('videoPassss');
+            console.log('videoPassss Album');
             let tempFileName = path.parse(selectedFiles[i].name).name;
             console.log(tempFileName);
-            if (fs.existsSync('/home/pi/jp/SmartPlay/assets/data/albums/' + albumName +' /mediaThumbs/' + tempFileName +'.png')) {
+            let fileExists = fs.existsSync('/home/pi/jp/SmartPlay/assets/data/albums/' + albumName + '/mediaThumbs/' + tempFileName +'.png');
+            console.log(fileExists);
+            if (fileExists) {
                 // Do something
                 console.log('File exists');
+                break;
             }
             else {
-                console.log('Creating thumbnai');
+                console.log('Creating thumbnail for: ');
+                console.log(tempFileName);
                 execSync('ffmpeg -i ' + selectedFiles[i].path + ' -ss 00:00:02 -vframes 1 ' +
                     '/home/pi/jp/SmartPlay/assets/data/albums/' + albumName + '/mediaThumbs/' + tempFileName +'.png');
             }
@@ -77,7 +77,7 @@ deleteFolder = function (folderPath) {
         fs.readdirSync(folderPath).forEach(function (entry) {
             var entry_path = path.join(folderPath, entry);
             if (fs.lstatSync(entry_path).isDirectory()) {
-                rimraf(entry_path);
+                execSync('rm -rf ' + entry_path);
             } else {
                 fs.unlinkSync(entry_path);
             }

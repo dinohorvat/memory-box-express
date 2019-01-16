@@ -27,6 +27,7 @@
     "node-cmd": "^3.0.0",
     "node-thumbnail": "^0.14.0",
     "omx-manager": "^0.1.4",
+    "rimraf": "^2.6.3",
     "serve-index": "^1.9.1",
     "socket.io": "^2.2.0",
     "uuid": "^3.3.2",

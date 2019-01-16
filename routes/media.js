@@ -37,15 +37,6 @@ router.post('/files', function (req, res) {
             }
             let _fileName = file;
             file = dir + '/' + file;
-            if (imagePass) {
-                thumb({
-                    source: file, // could be a filename: dest/path/image.jpg
-                    destination: '/home/pi/jp/SmartPlay/assets/data/thumbs',
-                    concurrency: 4
-                }, function (files, err, stdout, stderr) {
-                    console.log('Thumbnail done!');
-                });
-            }
             var stat = fs.statSync(file);
             if (stat && stat.isDirectory()) {
                 /* Recurse into a subdirectory */
