@@ -31,14 +31,15 @@ router.post('/connect/:pin', function (req, res) {
 
 /* SETUP wifi auto script. */
 router.get('/wifi', (req, res) => {
+  console.log('wifiSetup');
   const { spawn } = require('child_process');
   const pyProg = spawn('python', ['/home/pi/jp/SmartPlay/pythons/WifiAuto.py']);
+  console.log('pass');
 
   pyProg.stdout.on('data', function(data) {
     console.log(data.toString());
     res.send({data: data.toString(), success: true});
     res.end('end');
-    return;
   });
 });
 

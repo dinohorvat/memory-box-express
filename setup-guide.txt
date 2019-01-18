@@ -20,6 +20,10 @@ sudo apt-get install npm
 11) mkdir albums
 12) mkdir mediaThumbs
 13) mkdir tempPlaylist
+14) sudo pip install netifaces
+15) sudo nano /etc/wpa_supplicant/wpa_template
+16) Don't write anything, just write out and close
+
 
 --- Set up  OMXIV ---
 1) cd /home/pi/jp
