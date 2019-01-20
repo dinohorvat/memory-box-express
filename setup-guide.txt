@@ -27,6 +27,7 @@ sudo apt-get install npm
 18) cd /etc/wpa_supplicant
 19) sudo chmod -R 777 wpa_supplicant.conf
 
+20) sudo nano /etc/wpa_supplicant/wpa_template
     ctrl_interface=DIR=/var/run/wpa_supplicant GROUP=netdev
     update_config=1
     country=US
@@ -74,6 +75,7 @@ TODO
 3) sudo nano /etc/rc.local
 4) Add this before last line:
     python /home/pi/jp/SmartPlay_Playlist_Server/app.py &
+    python /home/pi/jp/SmartPlay/pythons/WifiAuto.py &
     node /home/pi/jp/SmartPlay/bin/www &
 
 
