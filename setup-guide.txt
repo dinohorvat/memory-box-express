@@ -78,4 +78,10 @@ TODO
     python /home/pi/jp/SmartPlay/pythons/WifiAuto.py &
     node /home/pi/jp/SmartPlay/bin/www &
 
+5) 3rd python server
+sudo nano /etc/crontab
+Add this at the end:
+
+@reboot  cd /media/pi/ && python -m SimpleHTTPServer
+
 
