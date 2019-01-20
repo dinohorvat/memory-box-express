@@ -60,7 +60,9 @@ Python server: (/home/pi/jp/SmartPlay_Playlist_Server)
     export FLASK_APP=app.py
     flask run --host=0.0.0.0
 
-Python image server (8080 port):
+Python image server (8000 port):
+cd /media/pi
+python -m SimpleHTTPServer
 TODO
 
 

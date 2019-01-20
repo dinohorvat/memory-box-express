@@ -214,9 +214,8 @@ router.post('/backup', function(req, res){
     output.on('close', function() {
         console.log(archive.pointer() + ' total bytes');
         console.log('archiver has been finalized and the output file descriptor has closed.');
-        fs.ensureDirSync(dest + '/+' + fileName, 0o777);
         fs.createReadStream(dest + '/' + fileName +'.zip')
-            .pipe(unzipper.Extract({ path: dest + '/' + fileName }));
+            .pipe(unzipper.Extract({ path: dest }));
         res.send({success:true});
     });
 
