@@ -7,7 +7,7 @@ var thumb = require('node-thumbnail').thumb;
 var ffmpeg = require('fluent-ffmpeg');
 var path = require('path');
 var execSync = require('child_process').execSync;
-
+var unzipper = require('unzipper');
 // 3rd party packages
 var dirTree = require("directory-tree");
 
@@ -214,6 +214,9 @@ router.post('/backup', function(req, res){
     output.on('close', function() {
         console.log(archive.pointer() + ' total bytes');
         console.log('archiver has been finalized and the output file descriptor has closed.');
+        fs.ensureDirSync(dest + '/+' + fileName, 0o777);
+        fs.createReadStream(dest + '/' + fileName +'.zip')
+            .pipe(unzipper.Extract({ path: dest + '/' + fileName }));
         res.send({success:true});
     });
 

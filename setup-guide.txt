@@ -21,8 +21,11 @@ sudo apt-get install npm
 12) mkdir mediaThumbs
 13) mkdir tempPlaylist
 14) sudo pip install netifaces
-15) sudo nano /etc/wpa_supplicant/wpa_template
-16) Paste this and save
+15) sudo pip install wireless
+16) sudo nano /etc/wpa_supplicant/wpa_template
+17) Paste this and save
+18) cd /etc/wpa_supplicant
+19) sudo chmod -R 777 wpa_supplicant.conf
 
     ctrl_interface=DIR=/var/run/wpa_supplicant GROUP=netdev
     update_config=1
@@ -56,6 +59,9 @@ Node server: (/home/pi/jp/SmartPlay)
 Python server: (/home/pi/jp/SmartPlay_Playlist_Server)
     export FLASK_APP=app.py
     flask run --host=0.0.0.0
+
+Python image server (8080 port):
+TODO
 
 
 *** Making servers run on startup ***
