@@ -43,4 +43,18 @@ router.get('/wifi', (req, res) => {
   });
 });
 
+/* SETUP wifi auto script. */
+router.get('/wifiNetworks', (req, res) => {
+
+  const { spawn } = require('child_process');
+  const pyProg = spawn('iw dev wlan0 scan | grep SSID');
+  console.log('pass');
+
+  pyProg.stdout.on('data', function(data) {
+    console.log(data.toString());
+    res.send({data: data.toString(), success: true});
+    res.end('end');
+  });
+});
+
 module.exports = router;
