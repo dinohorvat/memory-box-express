@@ -55,7 +55,7 @@ router.get('/wifiNetworks', (req, res) => {
       console.log(err);
     } else {
       console.log(networks);
-      return networks;
+      res.send({data: networks, success: true});
       /*
       networks = [
           {

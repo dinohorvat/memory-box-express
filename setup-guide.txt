@@ -5,6 +5,8 @@
 --- Installing Linux dependencies ---
 sudo apt-get install nodejs
 sudo apt-get install npm
+sudo apt-get install network-manager
+sudo apt-get install links
 
 --- Setting up application structure (NodeServer + Python Server) ---
 1) ssh to the Pi device
