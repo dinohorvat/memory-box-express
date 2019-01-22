@@ -1,6 +1,10 @@
 var express = require('express');
 var router = express.Router();
+var wifi = require('node-wifi');
 
+wifi.init({
+  iface : null // network interface, choose a random wifi interface if set to null
+});
 
 /* GET home page. */
 router.get('/', function(req, res, next) {
@@ -46,14 +50,30 @@ router.get('/wifi', (req, res) => {
 /* SETUP wifi auto script. */
 router.get('/wifiNetworks', (req, res) => {
 
-  const { spawn } = require('child_process');
-  const pyProg = spawn('iw dev wlan0 scan | grep SSID');
-  console.log('pass');
-
-  pyProg.stdout.on('data', function(data) {
-    console.log(data.toString());
-    res.send({data: data.toString(), success: true});
-    res.end('end');
+  wifi.scan(function(err, networks) {
+    if (err) {
+      console.log(err);
+    } else {
+      console.log(networks);
+      return networks;
+      /*
+      networks = [
+          {
+            ssid: '...',
+            bssid: '...',
+            mac: '...', // equals to bssid (for retrocompatibility)
+            channel: <number>,
+            frequency: <number>, // in MHz
+            signal_level: <number>, // in dB
+            quality: <number>, // same as signal level but in %
+            security: 'WPA WPA2' // format depending on locale for open networks in Windows
+            security_flags: '...' // encryption protocols (format currently depending of the OS)
+            mode: '...' // network mode like Infra (format currently depending of the OS)
+          },
+          ...
+      ];
+      */
+    }
   });
 });
 
