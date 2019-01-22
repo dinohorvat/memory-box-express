@@ -59,7 +59,7 @@ router.get('/wifiNetworks', (req, res) => {
   });
 });
 
-router.post('/createAlbum/:name',  (req, res) => {
+router.post('/connectWifi',  (req, res) => {
   let wifiInfo = req.body;
 
 // Connect to a network
