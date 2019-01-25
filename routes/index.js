@@ -87,7 +87,6 @@ router.post('/connectWifi',  (req, res) => {
     if (err) {
       return console.error(err.message);
     }
-    res.send({success: true})
     console.log('Successful connection!');
     piWifi.status('wlan0', function(err, status) {
       if (err) {
@@ -103,6 +102,7 @@ router.post('/connectWifi',  (req, res) => {
           { json: { } },
           function (error, response, body) {
             console.log(body)
+            res.send({success: true})
           }
       );
     });
