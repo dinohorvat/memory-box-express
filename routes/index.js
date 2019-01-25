@@ -56,6 +56,7 @@ router.get('/updateApp', (req, res) => {
         if(update && update.summary.changes) {
           require('child_process').exec('npm restart');
         }
+        res.send({success: true})
       })
       .exec(() => console.log('pull done.'));
 });
