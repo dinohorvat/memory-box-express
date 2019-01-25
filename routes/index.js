@@ -82,12 +82,13 @@ router.post('/connectWifi',  (req, res) => {
   let wifiInfo = req.body;
 
 //A simple connection
-  piWifi.connect(wifiInfo.ssid, wifiInfo.password, function(err) {
+  piWifi.connect(wifiInfo.ssid, wifiInfo.password, function(err, result) {
     if (err) {
       return console.error(err.message);
     }
     res.send({success: true})
     console.log('Successful connection!');
+    console.log(result);
   });
 //   wifi.connect({ ssid : wifiInfo.ssid, password : wifiInfo.password}, function(err) {
 //     if (err) {

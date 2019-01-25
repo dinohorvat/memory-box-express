@@ -28,6 +28,7 @@
     "node-thumbnail": "^0.14.0",
     "node-wifi": "^2.0.5",
     "omx-manager": "^0.1.4",
+    "pi-wifi": "^1.2.0",
     "rimraf": "^2.6.3",
     "serve-index": "^1.9.1",
     "simple-git": "^1.107.0",
