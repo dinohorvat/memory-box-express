@@ -1,6 +1,7 @@
 var express = require('express');
 var router = express.Router();
 var wifi = require('node-wifi');
+const simpleGit = require('simple-git');
 
 wifi.init({
   iface : null // network interface, choose a random wifi interface if set to null
@@ -45,6 +46,20 @@ router.get('/wifi', (req, res) => {
     res.send({data: data.toString(), success: true});
     res.end('end');
   });
+});
+
+/* SETUP wifi auto script. */
+router.get('/updateApp', (req, res) => {
+  simpleGit.pull((err, update) => {
+    if(update && update.summary.changes) {
+      require('child_process').exec('npm restart');
+    }
+    res.send({success: false});
+  })
+});
+
+router.get('/isRunning', (req, res) => {
+  res.send({success: true});
 });
 
 /* SETUP wifi auto script. */
