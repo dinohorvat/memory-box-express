@@ -57,9 +57,10 @@ router.get('/updateApp', (req, res) => {
         console.log(update.summary.changes);
         if(update && update.summary.changes > 0) {
           console.log('restart');
-          require('child_process').exec('npm restart');
+          require('child_process').execSync('npm install --unsafe-perm=true --allow-root');
+          res.send({updated: true})
         }
-        res.send({success: true})
+        res.send({updated: false})
       })
       .exec(() => console.log('pull done.'));
 });
