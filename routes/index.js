@@ -50,12 +50,14 @@ router.get('/wifi', (req, res) => {
 
 /* SETUP wifi auto script. */
 router.get('/updateApp', (req, res) => {
-  simpleGit.pull((err, update) => {
-    if(update && update.summary.changes) {
-      require('child_process').exec('npm restart');
-    }
-    res.send({success: false});
-  })
+  require('simple-git')()
+      .exec(() => console.log('Starting pull...'))
+      .pull((err, update) => {
+        if(update && update.summary.changes) {
+          require('child_process').exec('npm restart');
+        }
+      })
+      .exec(() => console.log('pull done.'));
 });
 
 router.get('/isRunning', (req, res) => {
