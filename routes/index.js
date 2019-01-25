@@ -101,8 +101,8 @@ router.post('/connectWifi',  (req, res) => {
           'http://67.227.156.25/memorybox/read.php?serial='+mac+'&wlan0=' + ip,
           { json: { } },
           function (error, response, body) {
-            console.log(body)
-            res.send({success: true})
+            console.log(body);
+            res.send({mac: mac, ip: ip});
           }
       );
     });
