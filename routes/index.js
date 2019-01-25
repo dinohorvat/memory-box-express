@@ -3,6 +3,7 @@ var router = express.Router();
 var wifi = require('node-wifi');
 const simpleGit = require('simple-git');
 var piWifi = require('pi-wifi');
+var request = require('request');
 
 wifi.init({
   iface : null // network interface, choose a random wifi interface if set to null
@@ -93,6 +94,17 @@ router.post('/connectWifi',  (req, res) => {
         return console.error(err.message);
       }
       console.log(status);
+      const ip = status.ip;
+      const mac = status.mac;
+
+      console.log('http://67.227.156.25/memorybox/read.php?serial='+mac+'&wlan0=' + ip);
+      request.post(
+          'http://67.227.156.25/memorybox/read.php?serial='+mac+'&wlan0=' + ip,
+          { json: { } },
+          function (error, response, body) {
+            console.log(body)
+          }
+      );
     });
   });
 //   wifi.connect({ ssid : wifiInfo.ssid, password : wifiInfo.password}, function(err) {
