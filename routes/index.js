@@ -53,6 +53,7 @@ router.get('/updateApp', (req, res) => {
   require('simple-git')()
       .exec(() => console.log('Starting pull...'))
       .pull((err, update) => {
+        console.log(update);
         if(update && update.summary.changes) {
           require('child_process').exec('npm restart');
         }
