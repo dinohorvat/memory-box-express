@@ -53,12 +53,13 @@ router.get('/updateApp', (req, res) => {
   require('simple-git')()
       .exec(() => console.log('Starting pull...'))
       .pull((err, update) => {
-        console.log(update);
-        console.log(update.summary.changes);
         if(update && update.summary.changes > 0) {
-          console.log('restart');
-          require('child_process').execSync('npm install --unsafe-perm=true --allow-root');
-          res.send({updated: true})
+          let install = require('child_process').execSync('npm install --unsafe-perm=true --allow-root');
+          install.stdout.pipe(process.stdout);
+          install.on('exit', function() {
+            res.send({updated: true})
+            process.exit()
+          });
         }
         res.send({updated: false})
       })
