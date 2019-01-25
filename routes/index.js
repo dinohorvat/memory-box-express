@@ -62,7 +62,7 @@ router.get('/updateApp', (req, res) => {
 });
 
 router.get('/isRunning', (req, res) => {
-  res.send({success: false});
+  res.send({success: true});
 });
 
 /* SETUP wifi auto script. */
