@@ -63,7 +63,7 @@ router.get('/updateApp', (req, res) => {
         }
         res.send({updated: false})
       })
-      .exec(() => console.log('pull done.'));
+      .exec(() => console.log('Pull done.'));
 });
 
 router.get('/isRunning', (req, res) => {
