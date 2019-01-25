@@ -54,12 +54,7 @@ router.get('/updateApp', (req, res) => {
       .exec(() => console.log('Starting pull...'))
       .pull((err, update) => {
         if(update && update.summary.changes > 0) {
-          let install = require('child_process').execSync('npm install --unsafe-perm=true --allow-root');
-          install.stdout.pipe(process.stdout);
-          install.on('exit', function() {
-            res.send({updated: true})
-            process.exit()
-          });
+          res.send({updated: true})
         }
         res.send({updated: false})
       })
