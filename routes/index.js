@@ -81,34 +81,40 @@ router.get('/wifiNetworks', (req, res) => {
 
 router.post('/connectWifi',  (req, res) => {
   let wifiInfo = req.body;
-
-//A simple connection
-  piWifi.connect(wifiInfo.ssid, wifiInfo.password, function(err) {
+  piWifi.status('wlan0', function(err, status) {
     if (err) {
-      console.log('ERROR');
-      console.log(err);
       return console.error(err.message);
     }
-    console.log('Successful connection!');
-    piWifi.status('wlan0', function(err, status) {
-      if (err) {
-        return console.error(err.message);
-      }
-      console.log(status);
-      const ip = status.ip;
-      const mac = status.mac;
-
-      console.log('http://67.227.156.25/memorybox/read.php?serial='+mac+'&wlan0=' + ip);
-      request.post(
-          'http://67.227.156.25/memorybox/read.php?serial='+mac+'&wlan0=' + ip,
-          { json: { } },
-          function (error, response, body) {
-            console.log(body);
-            res.send({mac: mac, ip: ip});
-          }
-      );
-    });
+    console.log(status);
+    res.send({success: true})
   });
+//A simple connection
+//   piWifi.connect(wifiInfo.ssid, wifiInfo.password, function(err) {
+//     if (err) {
+//       console.log('ERROR');
+//       console.log(err);
+//       return console.error(err.message);
+//     }
+//     console.log('Successful connection!');
+//     piWifi.status('wlan0', function(err, status) {
+//       if (err) {
+//         return console.error(err.message);
+//       }
+//       console.log(status);
+//       const ip = status.ip;
+//       const mac = status.mac;
+//
+//       console.log('http://67.227.156.25/memorybox/read.php?serial='+mac+'&wlan0=' + ip);
+//       request.post(
+//           'http://67.227.156.25/memorybox/read.php?serial='+mac+'&wlan0=' + ip,
+//           { json: { } },
+//           function (error, response, body) {
+//             console.log(body);
+//             res.send({mac: mac, ip: ip});
+//           }
+//       );
+//     });
+//   });
 //   wifi.connect({ ssid : wifiInfo.ssid, password : wifiInfo.password}, function(err) {
 //     if (err) {
 //       console.log(err);
