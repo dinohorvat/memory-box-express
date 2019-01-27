@@ -115,6 +115,13 @@ router.post('/connectWifi',  (req, res) => {
       return console.error(err.message);
     }
     console.log('Successful connection!');
+    piWifi.check(wifiInfo.ssid, function(err, result) {
+      if (err) {
+        return console.error(err.message);
+      }
+      console.log('result');
+      console.log(result);
+    });
     setTimeout(getWifiStatus, 1500, res);
   });
 //   wifi.connect({ ssid : wifiInfo.ssid, password : wifiInfo.password}, function(err) {
@@ -143,4 +150,16 @@ router.post('/wifiStatus',  (req, res) => {
 
 });
 
+
+router.post('/wifiConnect',  (req, res) => {
+  let wifiInfo = req.body;
+
+  // Connect to a network
+  wifi.connect({ ssid : wifiInfo.ssid, password : wifiInfo.password}, function(err) {
+    if (err) {
+      console.log(err);
+    }
+    console.log('Connected');
+  });
+});
 module.exports = router;
