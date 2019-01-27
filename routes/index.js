@@ -4,6 +4,8 @@ var wifi = require('node-wifi');
 const simpleGit = require('simple-git');
 var piWifi = require('pi-wifi');
 var request = require('request');
+var Wifi = require('rpi-wifi-connection');
+var wifiPi = new Wifi();
 
 wifi.init({
   iface : null // network interface, choose a random wifi interface if set to null
@@ -156,11 +158,17 @@ router.post('/wifiConnect',  (req, res) => {
   let wifiInfo = req.body;
 
   // Connect to a network
-  wifi.connect({ ssid : wifiInfo.ssid, password : wifiInfo.password}, function(err) {
-    if (err) {
-      console.log(err);
-    }
-    console.log('Connected');
-  });
+  wifiPi.connect({ssid: wifiInfo.ssid, psk: wifiInfo.password}).then(() => {
+    console.log('Connected to network.');
+    wifiPi.getStatus().then((status) => {
+      console.log(status);
+    })
+        .catch((error) => {
+          console.log(error);
+        });
+  })
+      .catch((error) => {
+        console.log(error);
+      });
 });
 module.exports = router;
