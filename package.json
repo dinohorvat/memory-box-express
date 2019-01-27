@@ -30,6 +30,7 @@
     "omx-manager": "^0.1.4",
     "pi-wifi": "^1.2.0",
     "rimraf": "^2.6.3",
+    "rpi-wifi-connection": "^1.0.14",
     "serve-index": "^1.9.1",
     "simple-git": "^1.107.0",
     "socket.io": "^2.2.0",
