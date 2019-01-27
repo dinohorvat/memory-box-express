@@ -117,14 +117,21 @@ router.post('/connectWifi',  (req, res) => {
       return console.error(err.message);
     }
     console.log('Successful connection!');
-    piWifi.check(wifiInfo.ssid, function(err, result) {
-      if (err) {
-        return console.error(err.message);
-      }
-      console.log('result');
-      console.log(result);
-      res.send(true);
-    });
+    wifiPi.getStatus().then((status) => {
+      console.log(status);
+      res.send({mac: status.ssid, ip: status.ip_address});
+    })
+        .catch((error) => {
+          console.log(error);
+        });
+    // piWifi.check(wifiInfo.ssid, function(err, result) {
+    //   if (err) {
+    //     return console.error(err.message);
+    //   }
+    //   console.log('result');
+    //   console.log(result);
+    //   res.send(true);
+    // });
     // setTimeout(getWifiStatus, 1500, res);
   });
 //   wifi.connect({ ssid : wifiInfo.ssid, password : wifiInfo.password}, function(err) {
