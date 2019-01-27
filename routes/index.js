@@ -102,7 +102,7 @@ function getWifiStatus(res) {
   })
 
 }
-router.post('/connectWifi',  (req, res) => {
+router.post('/wifiConnect',  (req, res) => {
   let wifiInfo = req.body;
 
   var networkDetails = {
@@ -161,7 +161,7 @@ router.post('/wifiStatus',  (req, res) => {
 });
 
 
-router.post('/wifiConnect',  (req, res) => {
+router.post('/connectWifi',  (req, res) => {
   let wifiInfo = req.body;
 
   // Connect to a network
@@ -169,6 +169,7 @@ router.post('/wifiConnect',  (req, res) => {
     console.log('Connected to network.');
     wifiPi.getStatus().then((status) => {
       console.log(status);
+      res.send({mac: status.ssid, ip: status.ip_address});
     })
         .catch((error) => {
           console.log(error);
