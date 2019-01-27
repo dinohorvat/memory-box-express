@@ -79,6 +79,27 @@ router.get('/wifiNetworks', (req, res) => {
   });
 });
 
+function getWifiStatus() {
+  piWifi.status('wlan0', function(err, status) {
+    if (err) {
+      return console.error(err.message);
+    }
+    console.log(status);
+    const ip = status.ip;
+    const mac = status.mac;
+
+    console.log('http://67.227.156.25/memorybox/read.php?serial='+mac+'&wlan0=' + ip);
+    request.post(
+        'http://67.227.156.25/memorybox/read.php?serial='+mac+'&wlan0=' + ip,
+        { json: { } },
+        function (error, response, body) {
+          console.log(body);
+          res.send({mac: mac, ip: ip});
+        }
+    );
+  })
+
+}
 router.post('/connectWifi',  (req, res) => {
   let wifiInfo = req.body;
 
@@ -90,26 +111,7 @@ router.post('/connectWifi',  (req, res) => {
       return console.error(err.message);
     }
     console.log('Successful connection!');
-    setTimeout(
-        piWifi.status('wlan0', function(err, status) {
-      if (err) {
-        return console.error(err.message);
-      }
-      console.log(status);
-      const ip = status.ip;
-      const mac = status.mac;
-
-      console.log('http://67.227.156.25/memorybox/read.php?serial='+mac+'&wlan0=' + ip);
-      request.post(
-          'http://67.227.156.25/memorybox/read.php?serial='+mac+'&wlan0=' + ip,
-          { json: { } },
-          function (error, response, body) {
-            console.log(body);
-            res.send({mac: mac, ip: ip});
-          }
-      );
-    })
-  , 1500);
+    setTimeout(getWifiStatus, 1500);
   });
 //   wifi.connect({ ssid : wifiInfo.ssid, password : wifiInfo.password}, function(err) {
 //     if (err) {
