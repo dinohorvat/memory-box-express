@@ -103,8 +103,12 @@ function getWifiStatus(res) {
 router.post('/connectWifi',  (req, res) => {
   let wifiInfo = req.body;
 
+  var networkDetails = {
+    ssid: wifiInfo.ssid,
+    password: wifiInfo.password
+  };
 //A simple connection
-  piWifi.connect(wifiInfo.ssid, wifiInfo.password, function(err) {
+  piWifi.connectTo(networkDetails, function(err) {
     if (err) {
       console.log('ERROR');
       console.log(err);
