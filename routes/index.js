@@ -121,8 +121,9 @@ router.post('/connectWifi',  (req, res) => {
       }
       console.log('result');
       console.log(result);
+      res.send(true);
     });
-    setTimeout(getWifiStatus, 1500, res);
+    // setTimeout(getWifiStatus, 1500, res);
   });
 //   wifi.connect({ ssid : wifiInfo.ssid, password : wifiInfo.password}, function(err) {
 //     if (err) {
