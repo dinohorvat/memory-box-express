@@ -21,6 +21,7 @@ sudo apt-get install links
     2) git clone https://github.com/nicholaswilde/rpi-smartthings.git
     3) cd rpi-smartthings/
     4) sudo npm install --unsafe-perm=true --allow-root
+    5) Put RaspberryPiDevice as friendly Name
 8) cd assets/
 9) mkdir data
 10) cd data

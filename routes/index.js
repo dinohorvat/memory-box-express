@@ -85,6 +85,8 @@ router.post('/connectWifi',  (req, res) => {
 //A simple connection
   piWifi.connect(wifiInfo.ssid, wifiInfo.password, function(err) {
     if (err) {
+      console.log('ERROR');
+      console.log(err);
       return console.error(err.message);
     }
     console.log('Successful connection!');
