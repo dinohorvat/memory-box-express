@@ -79,7 +79,7 @@ router.get('/wifiNetworks', (req, res) => {
   });
 });
 
-function getWifiStatus() {
+function getWifiStatus(res) {
   piWifi.status('wlan0', function(err, status) {
     if (err) {
       return console.error(err.message);
@@ -111,7 +111,7 @@ router.post('/connectWifi',  (req, res) => {
       return console.error(err.message);
     }
     console.log('Successful connection!');
-    setTimeout(getWifiStatus, 1500);
+    setTimeout(getWifiStatus, 1500, res);
   });
 //   wifi.connect({ ssid : wifiInfo.ssid, password : wifiInfo.password}, function(err) {
 //     if (err) {
