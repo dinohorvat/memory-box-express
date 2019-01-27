@@ -121,4 +121,22 @@ router.post('/connectWifi',  (req, res) => {
 //     res.send({success: true})
 //   });
 });
+
+router.post('/wifiStatus',  (req, res) => {
+  piWifi.status('wlan0', function(err, status) {
+    if (err) {
+      return console.error(err.message);
+    }
+    console.log(status);
+    const ip = status.ip;
+    const mac = status.mac;
+
+
+    res.send({mac: mac, ip: ip});
+
+  })
+
+
+});
+
 module.exports = router;
