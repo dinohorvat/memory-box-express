@@ -6,6 +6,8 @@ var piWifi = require('pi-wifi');
 var request = require('request');
 var Wifi = require('rpi-wifi-connection');
 var wifiPi = new Wifi();
+const bluetooth = require('node-bluetooth');
+const device = new bluetooth.DeviceINQ();
 
 wifi.init({
   iface : null // network interface, choose a random wifi interface if set to null
@@ -13,8 +15,19 @@ wifi.init({
 
 /* GET home page. */
 router.get('/', function(req, res, next) {
-  res.render('index', { title: 'Express' });;
+  res.render('index', { title: 'Express' });
   console.log('emitted');
+});
+
+router.get('/scanDevices', function(req, res, next) {
+    device
+        .on('finished',   function(){
+            console.log('finished');
+            res.send({success: true});
+        })
+        .on('found', function found(address, name){
+            console.log('Found: ' + address + ' with name ' + name);
+        }).scan();
 });
 
 router.post('/connect/:pin', function (req, res) {
