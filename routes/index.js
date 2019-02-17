@@ -20,16 +20,40 @@ router.get('/', function(req, res, next) {
 });
 
 router.get('/scanDevices', function(req, res, next) {
-  device.listPairedDevices(console.log);
+  var devices = [];
     device
         .on('finished',  function(){
           console.log('done');
-          res.send({success: true});
+          res.send({devices: devices, success: true});
         })
         .on('found', function found(address, name){
+          var device = {
+            device: name,
+            address: address
+          };
+          devices.push(device);
             console.log('Found: ' + address + ' with name ' + name);
         }).scan();
 });
+
+router.post('/connectDevice', function(req, res, next) {
+  let data = req.body;
+  console.log(data);
+  device.findSerialPortChannel(data.address, function(channel){
+    console.log('Found RFCOMM channel for serial port on %s: ', name, channel);
+
+    // make bluetooth connect to remote device
+    bluetooth.connect(data.address, channel, function(err, connection){
+      if(err) return console.error(err);
+      connection.write(new Buffer('Hello!', 'utf-8'), () => {
+        console.log("wrote");
+      });
+    });
+
+  });
+});
+
+
 
 router.post('/connect/:pin', function (req, res) {
   console.log('reading pin');
