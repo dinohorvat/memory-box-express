@@ -40,7 +40,7 @@ router.post('/connectDevice', function(req, res, next) {
   let data = req.body;
   console.log(data);
   device.findSerialPortChannel(data.address, function(channel){
-    console.log('Found RFCOMM channel for serial port on %s: ', name, channel);
+    console.log('Found RFCOMM channel for serial port on %s: ', channel);
 
     // make bluetooth connect to remote device
     bluetooth.connect(data.address, channel, function(err, connection){
