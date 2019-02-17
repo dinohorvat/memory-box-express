@@ -21,7 +21,12 @@ router.get('/', function(req, res, next) {
 
 router.get('/scanDevices', function(req, res, next) {
   device.listPairedDevices(console.log);
-  res.send({success: true});
+    device
+        .on('finished',  console.log.bind(console, 'finished'))
+        .on('found', function found(address, name){
+            console.log('Found: ' + address + ' with name ' + name);
+            res.send({success: true});
+        }).scan();
 });
 
 router.post('/connect/:pin', function (req, res) {
