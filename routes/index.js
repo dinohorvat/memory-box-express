@@ -22,7 +22,10 @@ router.get('/', function(req, res, next) {
 router.get('/scanDevices', function(req, res, next) {
   device.listPairedDevices(console.log);
     device
-        .on('finished',  res.send({success: true}))
+        .on('finished',  function(){
+          console.log('done');
+          res.send({success: true});
+        })
         .on('found', function found(address, name){
             console.log('Found: ' + address + ' with name ' + name);
         }).scan();
