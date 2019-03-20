@@ -64,6 +64,9 @@ sudo apt-get install links
 7) sudo make install
 
 
+--BLUEZ on Pi---
+https://raspberrypi.stackexchange.com/questions/61758/does-rpi-3-have-ble-bluetooth-low-energy-bluetooth-4-0-bluetooth-smart
+
 **** Running servers ****
 Node server: (/home/pi/jp/SmartPlay)
     node bin/www

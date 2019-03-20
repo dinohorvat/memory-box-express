@@ -47,6 +47,8 @@ router.post('/connectDevice', function(req, res, next) {
       if(err) return console.error(err);
       connection.write(new Buffer('Hello!', 'utf-8'), () => {
         console.log("wrote");
+        res.send({success: true});
+
       });
     });
 
