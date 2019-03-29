@@ -5,6 +5,7 @@
 --- Installing Linux dependencies ---
 sudo apt-get install nodejs
 sudo apt-get install npm
+sudo apt-get install libbluetooth-dev
 sudo apt-get install network-manager
 sudo apt-get install links
 
@@ -49,7 +50,9 @@ sudo apt-get install links
 
 
 
-
+--- Set up Bluetooth on Raspberry ---
+1) sudo apt-get install libbluetooth-dev
+2) https://didier.io/post/raspberrypi-stream-sound-over-bluetooth
 
 --- Set up  OMXIV ---
 1) cd /home/pi/jp
@@ -60,6 +63,9 @@ sudo apt-get install links
 6) make
 7) sudo make install
 
+
+--BLUEZ on Pi---
+https://raspberrypi.stackexchange.com/questions/61758/does-rpi-3-have-ble-bluetooth-low-energy-bluetooth-4-0-bluetooth-smart
 
 **** Running servers ****
 Node server: (/home/pi/jp/SmartPlay)

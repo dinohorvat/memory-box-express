@@ -6,6 +6,8 @@ var piWifi = require('pi-wifi');
 var request = require('request');
 var Wifi = require('rpi-wifi-connection');
 var wifiPi = new Wifi();
+const bluetooth = require('node-bluetooth');
+const device = new bluetooth.DeviceINQ();
 
 wifi.init({
   iface : null // network interface, choose a random wifi interface if set to null
@@ -13,9 +15,47 @@ wifi.init({
 
 /* GET home page. */
 router.get('/', function(req, res, next) {
-  res.render('index', { title: 'Express' });;
+  res.render('index', { title: 'Express' });
   console.log('emitted');
 });
+
+router.get('/scanDevices', function(req, res, next) {
+  var devices = [];
+    device
+        .on('finished',  function(){
+          console.log('done');
+          res.send({devices: devices, success: true});
+        })
+        .on('found', function found(address, name){
+          var device = {
+            device: name,
+            address: address
+          };
+          devices.push(device);
+            console.log('Found: ' + address + ' with name ' + name);
+        }).scan();
+});
+
+router.post('/connectDevice', function(req, res, next) {
+  let data = req.body;
+  console.log(data);
+  device.findSerialPortChannel(data.address, function(channel){
+    console.log('Found RFCOMM channel for serial port on %s: ', channel);
+
+    // make bluetooth connect to remote device
+    bluetooth.connect(data.address, channel, function(err, connection){
+      if(err) return console.error(err);
+      connection.write(new Buffer('Hello!', 'utf-8'), () => {
+        console.log("wrote");
+        res.send({success: true});
+
+      });
+    });
+
+  });
+});
+
+
 
 router.post('/connect/:pin', function (req, res) {
   console.log('reading pin');
