@@ -9,7 +9,23 @@ sudo apt-get install libbluetooth-dev
 sudo apt-get install network-manager
 sudo apt-get install links
 
---- Setting up application structure (NodeServer + Python Server) ---
+--- Setting up application structure (NEW)
+1) ssh to the Pi device
+2) mkdir /home/pi/jp
+3) git clone https://github.com/dinohorvat/memory-box-express.git
+4) rename cloned dir to SmartPlay
+5) git clone https://github.com/dinohorvat/SmartPlay_Playlist_Server.git
+6) Enter /home/pi/jp/SmartPlay
+7) sudo npm install --unsafe-perm=true --allow-root
+8) cd assets/
+9) mkdir data
+10) cd data
+11) mkdir albums
+12) mkdir mediaThumbs
+13) mkdir tempPlaylist
+14) sudo chmod -R 777 wpa_supplicant.conf
+
+--- Setting up application structure OLD (NodeServer + Python Server) ---
 1) ssh to the Pi device
 2) mkdir /home/pi/jp
 3) git clone https://github.com/dinohorvat/memory-box-express.git
