@@ -10,6 +10,7 @@ var execSync = require('child_process').execSync;
 var unzipper = require('unzipper');
 // 3rd party packages
 var dirTree = require("directory-tree");
+const ThumbnailGenerator = require('video-thumbnail-generator').default;
 
 /* GET media files. */
 router.get('/', function (req, res) {
@@ -63,8 +64,13 @@ router.post('/files', function (req, res) {
                     }
                     else {
                         console.log('Creating thumbnai');
-                        execSync('ffmpeg -i ' + file + ' -ss 00:00:02 -vframes 1 ' +
-                            '/home/pi/jp/SmartPlay/assets/data/mediaThumbs/' + tempFileName +'.png');
+                        const tg = new ThumbnailGenerator({
+                            sourcePath: file,
+                            thumbnailPath: '/home/pi/jp/SmartPlay/assets/data/mediaThumbs/'
+                        });
+                        tg.generateOneByPercent(90 ,{
+                            filename: tempFileName +'.png',
+                        })
                     }
                     _file.videoPath = '/data/mediaThumbs/' + tempFileName +'.png';
                         // ffmpeg(file)
