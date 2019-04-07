@@ -11,6 +11,7 @@ var unzipper = require('unzipper');
 // 3rd party packages
 var dirTree = require("directory-tree");
 const ThumbnailGenerator = require('video-thumbnail-generator').default;
+var filepreview = require('filepreview');
 
 /* GET media files. */
 router.get('/', function (req, res) {
@@ -63,15 +64,21 @@ router.post('/files', function (req, res) {
                     }
                     else {
                         console.log('Creating thumbnai');
-                        const tg = new ThumbnailGenerator({
-                            sourcePath: file,
-                            thumbnailPath: '/home/pi/jp/SmartPlay/assets/data/mediaThumbs/'
-                        });
-                        tg.generateOneByPercent(90 ,{
-                            filename: tempFileName +'.png',
-                        }).then(() => {
-                            console.log('extracted')
-                        });
+                        // const tg = new ThumbnailGenerator({
+                        //     sourcePath: file,
+                        //     thumbnailPath: '/home/pi/jp/SmartPlay/assets/data/mediaThumbs/'
+                        // });
+                        // tg.generateOneByPercent(90 ,{
+                        //     filename: tempFileName +'.png',
+                        // }).then(() => {
+                        //     console.log('extracted')
+                        // });
+
+                        if (!filepreview.generateSync(file, '/home/pi/jp/SmartPlay/assets/data/mediaThumbs/' + tempFileName +'.png')) {
+                            console.log('Oops, something went wrong.');
+                        } else {
+                            console.log('File preview is /home/myfile_preview.gif');
+                        };
                     }
                     _file.videoPath = '/data/mediaThumbs/' + tempFileName +'.png';
                 }
@@ -109,7 +116,7 @@ router.post('/upload', function (req, res) {
 
 router.post('/download', function(req, res){
     let fileName = req.body.name;
-    var file = mediaPathUSB + '/' + fileName;
+    const file = mediaPathUSB + '/' + fileName;
     res.download(file); //
 });
 
