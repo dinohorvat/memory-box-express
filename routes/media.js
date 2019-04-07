@@ -59,7 +59,6 @@ router.post('/files', function (req, res) {
                     let tempFileName = path.parse(fileName).name;
                     console.log(tempFileName);
                     if (fs.existsSync('/home/pi/jp/SmartPlay/assets/data/mediaThumbs/' + tempFileName +'.png')) {
-                        // Do something
                         console.log('File exists');
                     }
                     else {
@@ -70,18 +69,14 @@ router.post('/files', function (req, res) {
                         });
                         tg.generateOneByPercent(90 ,{
                             filename: tempFileName +'.png',
-                        })
+                        }).then(() => {
+                            console.log('extracted')
+                        });
+                        setTimeout(function () {
+                            console.log('timeout done')
+                        }, 1000)
                     }
                     _file.videoPath = '/data/mediaThumbs/' + tempFileName +'.png';
-                        // ffmpeg(file)
-                        //     .on('end', function () {
-                        //         console.log('Screenshots taken');
-                        //     })
-                        //     .screenshots({
-                        //         count: 1,
-                        //         filename: tempFileName + '.png',
-                        //         folder: '/home/pi/jp/SmartPlay/assets/mediaThumbs'
-                        //     });
                 }
                 /* Is a file */
                 results.push(_file);
@@ -99,9 +94,8 @@ router.post('/files', function (req, res) {
     else {
         var fileList = walk(mediaPathUSB, false);
     }
-    setTimeout(function () {
-        res.send(fileList);
-    }, 2000)
+    res.send(fileList);
+
 });
 
 router.post('/upload', function (req, res) {
