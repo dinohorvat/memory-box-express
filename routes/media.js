@@ -12,16 +12,6 @@ var unzipper = require('unzipper');
 var dirTree = require("directory-tree");
 const ThumbnailGenerator = require('video-thumbnail-generator').default;
 
-
-function sleep(milliseconds) {
-    var start = new Date().getTime();
-    for (var i = 0; i < 1e7; i++) {
-        if ((new Date().getTime() - start) > milliseconds){
-            break;
-        }
-    }
-}
-
 /* GET media files. */
 router.get('/', function (req, res) {
     let albumRoot = dirTree(mediaPathUSB, {
@@ -82,7 +72,6 @@ router.post('/files', function (req, res) {
                         }).then(() => {
                             console.log('extracted')
                         });
-                        sleep(1000);
                     }
                     _file.videoPath = '/data/mediaThumbs/' + tempFileName +'.png';
                 }
