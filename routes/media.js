@@ -99,7 +99,9 @@ router.post('/files', function (req, res) {
     else {
         var fileList = walk(mediaPathUSB, false);
     }
-    res.send(fileList);
+    setTimeout(function () {
+        res.send(fileList);
+    }, 2000)
 });
 
 router.post('/upload', function (req, res) {

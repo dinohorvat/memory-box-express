@@ -28,6 +28,8 @@ sudo apt-get install links
 --- Setting up application structure OLD (NodeServer + Python Server) ---
 1) ssh to the Pi device
 2) mkdir /home/pi/jp
+
+
 3) git clone https://github.com/dinohorvat/memory-box-express.git
 4) rename cloned dir to SmartPlay
 5) git clone https://github.com/dinohorvat/SmartPlay_Playlist_Server.git
