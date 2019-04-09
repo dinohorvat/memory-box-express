@@ -64,21 +64,8 @@ router.post('/files', function (req, res) {
                     }
                     else {
                         console.log('Creating thumbnai');
-                        // const tg = new ThumbnailGenerator({
-                        //     sourcePath: file,
-                        //     thumbnailPath: '/home/pi/jp/SmartPlay/assets/data/mediaThumbs/'
-                        // });
-                        // tg.generateOneByPercent(90 ,{
-                        //     filename: tempFileName +'.png',
-                        // }).then(() => {
-                        //     console.log('extracted')
-                        // });
-
-                        if (!filepreview.generateSync(file, '/home/pi/jp/SmartPlay/assets/data/mediaThumbs/' + tempFileName +'.png')) {
-                            console.log('Oops, something went wrong.');
-                        } else {
-                            console.log('File preview is /home/myfile_preview.gif');
-                        };
+                        execSync('ffmpegthumbnailer -i ' + file + ' -o ' +
+                            '/home/pi/jp/SmartPlay/assets/data/mediaThumbs/' + tempFileName +'.png');
                     }
                     _file.videoPath = '/data/mediaThumbs/' + tempFileName +'.png';
                 }
