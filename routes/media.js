@@ -64,8 +64,12 @@ router.post('/files', function (req, res) {
                     }
                     else {
                         console.log('Creating thumbnai');
-                        execSync('ffmpegthumbnailer -i ' + file + ' -o ' +
-                            '/home/pi/jp/SmartPlay/assets/data/mediaThumbs/' + tempFileName +'.png');
+                        try {
+                            execSync('ffmpegthumbnailer -i ' + file + ' -o ' +
+                                '/home/pi/jp/SmartPlay/assets/data/mediaThumbs/' + tempFileName +'.png');
+                        } catch(err) {
+                            return;
+                        }
                     }
                     _file.videoPath = '/data/mediaThumbs/' + tempFileName +'.png';
                 }
