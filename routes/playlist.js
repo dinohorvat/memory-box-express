@@ -62,7 +62,6 @@ module.exports = function(io) {
 
     /* GET current playlist files. */
     router.post('/createTemp', function (req, res) {
-        playlistData = playlistDataStart;
         let selectedFiles = req.body;
         fs.removeSync('/home/pi/jp/SmartPlay/assets/data/tempPlaylist');
         fs.ensureDirSync('/home/pi/jp/SmartPlay/assets/data/tempPlaylist', 0o777);
