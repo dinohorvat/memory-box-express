@@ -1,3 +1,4 @@
 1) Add New Device
 2) Connect to Device
 3)
+https://www.electronicwings.com/raspberry-pi/using-raspberry-pi-3-on-board-bluetooth-for-communication
