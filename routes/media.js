@@ -3,15 +3,11 @@ var router = express.Router();
 var fs = require('fs-extra');
 var archiver = require('archiver');
 var dateFormat = require('dateformat');
-var thumb = require('node-thumbnail').thumb;
-var ffmpeg = require('fluent-ffmpeg');
 var path = require('path');
 var execSync = require('child_process').execSync;
 var unzipper = require('unzipper');
 // 3rd party packages
 var dirTree = require("directory-tree");
-const ThumbnailGenerator = require('video-thumbnail-generator').default;
-var filepreview = require('filepreview');
 
 /* GET media files. */
 router.get('/', function (req, res) {
