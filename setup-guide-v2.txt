@@ -1,0 +1,65 @@
+--- Raspbian Image ---
+1) Download Newest Raspbian Stretch Desktop image and mount it to SD card
+2) ssh to the Pi device
+
+--- Installing Linux dependencies ---
+sudo apt-get install nodejs
+sudo apt-get install npm
+
+--- Setting up application structure (NEW)
+1) ssh to the Pi device
+2) mkdir /home/pi/jp
+3) git clone https://github.com/dinohorvat/memory-box-express.git
+4) rename cloned dir to SmartPlay
+5) git clone https://github.com/dinohorvat/SmartPlay_Playlist_Server.git
+6) Enter /home/pi/jp/SmartPlay
+7) sudo npm install --unsafe-perm=true --allow-root
+8) cd assets/
+9) mkdir data
+10) cd data
+11) mkdir albums
+12) mkdir mediaThumbs
+13) mkdir tempPlaylist
+14) sudo chmod -R 777 /etc/wpa_supplicant/wpa_supplicant.conf
+
+-- Set up Bluetooth --
+1) Follow the guide from https://github.com/dinohorvat/pybluez--rfcomm-server
+
+--- Set up  OMXIV ---
+1) cd /home/pi/jp
+2) git clone https://github.com/HaarigerHarald/omxiv
+3) sudo apt-get install libjpeg8-dev libpng12-dev
+4) cd omxiv
+5) make ilclient
+6) make
+7) sudo make install
+
+**** Running servers ****
+Node server: (/home/pi/jp/SmartPlay)
+    node bin/www
+
+Python server: (/home/pi/jp/SmartPlay_Playlist_Server)
+    export FLASK_APP=app.py
+    flask run --host=0.0.0.0
+
+Python image server (8000 port):
+cd /media/pi
+python -m SimpleHTTPServer
+
+*** Making servers run on startup ***
+1) sudo nano /etc/profile
+2) Add this under other export:
+    FLASK_APP="/home/pi/jp/SmartPlay_Playlist_Server/app.py"
+    export FLASK_APP
+3) sudo nano /etc/rc.local
+4) Add this before last line:
+    python /home/pi/jp/SmartPlay_Playlist_Server/app.py &
+    python /home/pi/jp/SmartPlay/pythons/WifiAuto.py &
+    node /home/pi/jp/SmartPlay/bin/www &
+    PORT=3005 node /home/pi/jp/rpi-smartthings/server.js &
+
+5) 3rd python server
+sudo nano /etc/crontab
+Add this at the end:
+
+@reboot  cd /media/pi/ && python -m SimpleHTTPServer
