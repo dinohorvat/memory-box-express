@@ -2,3 +2,5 @@
 2) Connect to Device
 3)
 https://www.electronicwings.com/raspberry-pi/using-raspberry-pi-3-on-board-bluetooth-for-communication
+https://gist.github.com/keithweaver/3d5dbf38074cee4250c7d9807510c7c3
+pass
