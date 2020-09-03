@@ -28,7 +28,7 @@
     "node-bluetooth": "^1.2.5",
     "node-cmd": "^3.0.0",
     "node-thumbnail": "^0.14.0",
-    "node-wifi": "^2.0.5",
+    "node-wifi": "^2.0.12",
     "omx-manager": "^0.1.4",
     "pi-wifi": "^1.2.0",
     "rimraf": "^2.6.3",
